@@ -45,8 +45,8 @@ class ChatSummaryWidget extends StatelessWidget {
           textDirection: TextDirection.rtl,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const CircleAvatar(
-              foregroundImage: AssetImage('assets/images/image_1.jpg'),
+             CircleAvatar(
+              foregroundImage: AssetImage(imagePath),
               radius: 30,
               backgroundColor: Colors.white,
               child: Icon(

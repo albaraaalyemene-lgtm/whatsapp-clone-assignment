@@ -8,7 +8,7 @@ class TestWidget extends StatelessWidget {
     return GridView.count(
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
-      crossAxisCount: 1,
+      crossAxisCount: 4,
       children: List.generate(20, (index) {
         return Container(
           color: Colors.blue,

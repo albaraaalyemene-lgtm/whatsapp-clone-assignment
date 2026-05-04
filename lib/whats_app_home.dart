@@ -1,7 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:whats_app_clone/chat_summary_widget.dart';
 import 'package:whats_app_clone/custom_search_widget.dart';
+import 'package:whats_app_clone/models/chat_data_model.dart';
+import 'package:whats_app_clone/screens/calls_screen.dart';
+import 'package:whats_app_clone/screens/chat_details_screen.dart';
+import 'package:whats_app_clone/screens/chats_screen.dart';
+import 'package:whats_app_clone/screens/groups_screen.dart';
+import 'package:whats_app_clone/screens/recents_screen.dart';
+import 'package:whats_app_clone/test_widget.dart';
 
 class WhatsAppHome extends StatefulWidget {
   const WhatsAppHome({super.key});
@@ -11,62 +17,127 @@ class WhatsAppHome extends StatefulWidget {
 }
 
 class _WhatsAppHomeState extends State<WhatsAppHome> {
+  List<ChatDataModel> chatList = [
+    ChatDataModel(
+        name: "Ali",
+        imagePath: "assets/images/image_1.jpg",
+        time: "5:10",
+        lastMessage: "How are you?",
+        mssgCount: 4),
+    ChatDataModel(
+        name: "Said",
+        imagePath: "assets/images/image_2.jpg",
+        time: "5:30",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+    ChatDataModel(
+        name: "Ali",
+        imagePath: "assets/images/image_1.jpg",
+        time: "5:10",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+    ChatDataModel(
+        name: "Ali",
+        imagePath: "assets/images/image_1.jpg",
+        time: "5:10",
+        lastMessage: "How are you?",
+        mssgCount: 2),
+    ChatDataModel(
+        name: "Said",
+        imagePath: "assets/images/image_2.jpg",
+        time: "5:30",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+    ChatDataModel(
+        name: "Ali",
+        imagePath: "assets/images/image_1.jpg",
+        time: "5:10",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+    ChatDataModel(
+        name: "Ali",
+        imagePath: "assets/images/image_1.jpg",
+        time: "5:10",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+    ChatDataModel(
+        name: "Said",
+        imagePath: "assets/images/image_2.jpg",
+        time: "5:30",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+    ChatDataModel(
+        name: "Ali",
+        imagePath: "assets/images/image_1.jpg",
+        time: "5:10",
+        lastMessage: "How are you?",
+        mssgCount: 1),
+  ];
   // const MyApp({super.key});
-List chatList=[
-  {
-    "name":"Ali",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_1.jpg",
-  },
-  {
-    "name":"Ahmed",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_2.jpg",
-  },
-  {
-    "name":"Ali",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_1.jpg",
-  },
-  {
-    "name":"Ahmed",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_2.jpg",
-  },
-  {
-    "name":"Ali",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_1.jpg",
-  },
-  {
-    "name":"Ahmed",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_2.jpg",
-  },
-  {
-    "name":"Ali",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_1.jpg",
-  },
-  {
-    "name":"Ahmed",
-    "lastMssg":"Alsalam alikom!",
-    "time":"5:01",
-    "imagePath":"assets/images/image_2.jpg",
-  },
-];
-
-int _mssgCount=0;
+  // List chatList = [
+  //   {
+  //     "name": "Ali",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_1.jpg",
+  //   },
+  //   {
+  //     "name": "Ahmed",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_2.jpg",
+  //   },
+  //   {
+  //     "name": "Ali",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_1.jpg",
+  //   },
+  //   {
+  //     "name": "Ahmed",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_2.jpg",
+  //   },
+  //   {
+  //     "name": "Ali",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_1.jpg",
+  //   },
+  //   {
+  //     "name": "Ahmed",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_2.jpg",
+  //   },
+  //   {
+  //     "name": "Ali",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_1.jpg",
+  //   },
+  //   {
+  //     "name": "Ahmed",
+  //     "lastMssg": "Alsalam alikom!",
+  //     "time": "5:01",
+  //     "imagePath": "assets/images/image_2.jpg",
+  //   },
+  // ];
+  int _currentIndex = 3;
+  List<Widget> _pages = [
+    CallsScreen(),
+    GroupsScreen(),
+    RecentsScreen(),
+    ChatsScreen()
+  ];
+  int _mssgCount = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/test': (context) => TestWidget(),
+      },
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -102,18 +173,35 @@ int _mssgCount=0;
           ),
           backgroundColor: Colors.black,
         ),
-        body: ListView.builder(
+        body:
+            // _pages[_currentIndex]
+
+            ListView.builder(
           itemCount: chatList.length,
           itemBuilder: (context, index) {
-            return  ChatSummaryWidget(
-              name:chatList[index]["name"] ,
-              lastMessage: chatList[index]["lastMssg"],
-              time: chatList[index]["time"],
-              imagePath: chatList[index]["imagePath"],
-              mssgCount: _mssgCount,
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatDetailsScreen(
+                              name: chatList[index].name,
+                              imagePath: chatList[index].imagePath,
+                            )));
+
+                // Navigator.pushNamed(context, '/test');
+              },
+              child: ChatSummaryWidget(
+                name: chatList[index].name,
+                lastMessage: chatList[index].lastMessage,
+                time: chatList[index].time,
+                imagePath: chatList[index].imagePath,
+                mssgCount: chatList[index].mssgCount,
+              ),
             );
           },
-        ) // ignore: prefer_const_constructors
+        )
+        // // ignore: prefer_const_constructors
 
         //
         //
@@ -206,10 +294,15 @@ int _mssgCount=0;
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         bottomNavigationBar: BottomNavigationBar(
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
             unselectedItemColor: Colors.white,
             selectedItemColor: Colors.green,
             backgroundColor: Colors.black,
-            currentIndex: 1,
+            currentIndex: _currentIndex,
             type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(
