@@ -49,7 +49,7 @@ class ChatSummaryWidget extends StatelessWidget {
               foregroundImage: AssetImage(imagePath),
               radius: 30,
               backgroundColor: Colors.white,
-              child: Icon(
+              child: const Icon(
                 Icons.person,
                 color: Colors.black,
                 size: 30,
@@ -81,9 +81,9 @@ class ChatSummaryWidget extends StatelessWidget {
               children: [
                 Text(
                   time,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                  Row(
@@ -96,10 +96,10 @@ class ChatSummaryWidget extends StatelessWidget {
                       style: const TextStyle(fontSize: 10),
                     ),
                   ),
-                   SizedBox(
+                   const SizedBox(
                     width: 5,
                   ),
-                   Icon(
+                   const Icon(
                     Icons.check,
                     size: 18,
                     color: Color.fromARGB(147, 255, 255, 255),

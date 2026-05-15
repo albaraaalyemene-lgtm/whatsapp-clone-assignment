@@ -1,67 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:whats_app_clone/test_widget.dart';
+import 'package:whats_app_clone/models/chat_data_model.dart';
 
 class ChatDetailsScreen extends StatelessWidget {
-  const ChatDetailsScreen({super.key, required this.name, required this.imagePath});
-  final String name;
-  final String imagePath;
+  const ChatDetailsScreen({super.key, required this.chatData});
+  final ChatDataModel chatData;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            const Icon(
-              Icons.call,
-              color: Colors.white,
-              size: 20,
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1F2C34),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title:  Row(
+          children: [
+            CircleAvatar(
+              radius: 18,
+              backgroundImage: AssetImage(chatData.imagePath),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-              size: 20,
-            ),
-            const SizedBox(
-              width: 20,
+            const SizedBox(width: 10),
+            Text(
+              chatData.name,
+              style: const TextStyle(color: Colors.white),
             ),
           ],
-          title:  Row(
-            children: [
-              CircleAvatar(
-                radius: 18,
-                foregroundImage: AssetImage(imagePath),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                name,
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              )
-            ],
-          ),
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 20,
-              )),
-          backgroundColor: const Color.fromARGB(255, 40, 44, 59),
         ),
-        body:  Center(
-          child: Text(
-            "Chat of:$name",
-            style: TextStyle(fontSize: 30),
-          ),
+        actions: const [
+          Icon(Icons.call, color: Colors.white),
+          SizedBox(width: 15),
+          Icon(Icons.more_vert, color: Colors.white),
+          SizedBox(width: 30),
+        ],
+      ),
+      body:  Center(
+        child: Text(
+          "محادثة ${chatData.name}",
+          style: const TextStyle(color: Colors.white70, fontSize: 18),
         ),
       ),
     );

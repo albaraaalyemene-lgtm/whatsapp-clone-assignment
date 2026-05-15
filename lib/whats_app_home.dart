@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:whats_app_clone/chat_summary_widget.dart';
 import 'package:whats_app_clone/custom_search_widget.dart';
 import 'package:whats_app_clone/models/chat_data_model.dart';
+import 'package:whats_app_clone/models/setting_model.dart';
 import 'package:whats_app_clone/screens/calls_screen.dart';
 import 'package:whats_app_clone/screens/chat_details_screen.dart';
 import 'package:whats_app_clone/screens/chats_screen.dart';
 import 'package:whats_app_clone/screens/groups_screen.dart';
 import 'package:whats_app_clone/screens/recents_screen.dart';
+import 'package:whats_app_clone/screens/setting_screen.dart';
 import 'package:whats_app_clone/test_widget.dart';
 
 class WhatsAppHome extends StatefulWidget {
@@ -19,61 +22,30 @@ class WhatsAppHome extends StatefulWidget {
 class _WhatsAppHomeState extends State<WhatsAppHome> {
   List<ChatDataModel> chatList = [
     ChatDataModel(
-        name: "Ali",
+        name: "Ahmed",
         imagePath: "assets/images/image_1.jpg",
-        time: "5:10",
-        lastMessage: "How are you?",
-        mssgCount: 4),
+        time: "2:30",
+        lastMessage: "Hi How  are you?",
+        mssgCount: 3),
     ChatDataModel(
-        name: "Said",
+        name: "Saeed",
         imagePath: "assets/images/image_2.jpg",
-        time: "5:30",
-        lastMessage: "How are you?",
-        mssgCount: 1),
-    ChatDataModel(
-        name: "Ali",
-        imagePath: "assets/images/image_1.jpg",
-        time: "5:10",
-        lastMessage: "How are you?",
-        mssgCount: 1),
-    ChatDataModel(
-        name: "Ali",
-        imagePath: "assets/images/image_1.jpg",
-        time: "5:10",
-        lastMessage: "How are you?",
+        time: "3:30",
+        lastMessage: "Hi How  are you?",
         mssgCount: 2),
     ChatDataModel(
-        name: "Said",
-        imagePath: "assets/images/image_2.jpg",
-        time: "5:30",
-        lastMessage: "How are you?",
-        mssgCount: 1),
+        name: "ALi",
+        imagePath: "assets/images/image_3.jpg",
+        time: "1:30",
+        lastMessage: "Hi How  are you?",
+        mssgCount: 20),
     ChatDataModel(
-        name: "Ali",
-        imagePath: "assets/images/image_1.jpg",
-        time: "5:10",
-        lastMessage: "How are you?",
-        mssgCount: 1),
-    ChatDataModel(
-        name: "Ali",
-        imagePath: "assets/images/image_1.jpg",
-        time: "5:10",
-        lastMessage: "How are you?",
-        mssgCount: 1),
-    ChatDataModel(
-        name: "Said",
-        imagePath: "assets/images/image_2.jpg",
-        time: "5:30",
-        lastMessage: "How are you?",
-        mssgCount: 1),
-    ChatDataModel(
-        name: "Ali",
-        imagePath: "assets/images/image_1.jpg",
-        time: "5:10",
-        lastMessage: "How are you?",
+        name: "Khalid",
+        imagePath: "assets/images/image_4.jpg",
+        time: "3:50",
+        lastMessage: "Hi How  are you?",
         mssgCount: 1),
   ];
-  // const MyApp({super.key});
   // List chatList = [
   //   {
   //     "name": "Ali",
@@ -125,7 +97,7 @@ class _WhatsAppHomeState extends State<WhatsAppHome> {
   //   },
   // ];
   int _currentIndex = 3;
-  List<Widget> _pages = [
+  final List<Widget> _pages = const [
     CallsScreen(),
     GroupsScreen(),
     RecentsScreen(),
@@ -134,31 +106,42 @@ class _WhatsAppHomeState extends State<WhatsAppHome> {
   int _mssgCount = 0;
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingModel>(context);
     return MaterialApp(
-      routes: {
-        '/test': (context) => TestWidget(),
-      },
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(100),
-              child: CustomSearchWidget()),
+          bottom: const PreferredSize(
+              preferredSize: Size.fromHeight(100), child: CustomSearchWidget()),
           leadingWidth: 100,
-          leading: const Padding(
+          leading: Padding(
             padding: EdgeInsets.only(left: 16),
             child: Row(
               children: [
-                Icon(
-                  Icons.more_vert,
-                  color: Colors.white,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingScreen(),
+                        ));
+                  },
+                  child: Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  Icons.camera_alt_outlined,
-                  color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/test');
+                  },
+                  child: Icon(
+                    Icons.camera_alt_outlined,
+                    color: Colors.white,
+                  ),
                 )
               ],
             ),
@@ -166,14 +149,15 @@ class _WhatsAppHomeState extends State<WhatsAppHome> {
           title: Container(
             padding: const EdgeInsets.only(right: 16.0),
             alignment: Alignment.centerRight,
-            child: const Text(
-              "واتساب",
+            child:  Text(
+              "واتساب ${settings.getName()}",
               style: TextStyle(color: Colors.white),
             ),
           ),
           backgroundColor: Colors.black,
         ),
         body:
+
             // _pages[_currentIndex]
 
             ListView.builder(
@@ -184,12 +168,10 @@ class _WhatsAppHomeState extends State<WhatsAppHome> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChatDetailsScreen(
-                              name: chatList[index].name,
-                              imagePath: chatList[index].imagePath,
-                            )));
-
-                // Navigator.pushNamed(context, '/test');
+                      builder: (context) => ChatDetailsScreen(
+                        chatData: chatList[index],
+                      ),
+                    ));
               },
               child: ChatSummaryWidget(
                 name: chatList[index].name,
@@ -200,86 +182,7 @@ class _WhatsAppHomeState extends State<WhatsAppHome> {
               ),
             );
           },
-        )
-        // // ignore: prefer_const_constructors
-
-        //
-        //
-        // Container(
-        //   height: double.infinity,
-        //   color: Colors.white,
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     crossAxisAlignment: CrossAxisAlignment.center,
-        //     mainAxisSize: MainAxisSize.max,
-        //     children: [
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: [
-        //           Container(
-        //             height: 100,
-        //             width: 100,
-        //             color: Colors.red,
-        //           ),
-        //           // const SizedBox(width: 20,),
-        //           Container(
-        //             height: 100,
-        //             width: 100,
-        //             color: Colors.green,
-        //           ),
-        //           Container(
-        //             height: 100,
-        //             width: 100,
-        //             color: Colors.blue,
-        //           ),
-        //         ],
-        //       ),
-        //       const SizedBox(
-        //         height: 20,
-        //       ),
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: [
-        //           Container(
-        //             height: 100,
-        //             width: 100,
-        //             color: Colors.red,
-        //           ),
-        //           // const SizedBox(width: 20,),
-        //           Container(
-        //             height: 100,
-        //             width: 100,
-        //             color: Colors.green,
-        //           ),
-        //           Container(
-        //             height: 100,
-        //             width: 100,
-        //             color: Colors.blue,
-        //           ),
-        //         ],
-        //       ),
-        //       const SizedBox(
-        //         height: 20,
-        //       ),
-        //       Container(
-        //         padding:const EdgeInsets.all(20),
-        //         // alignment: Alignment.center,
-        //         height: 300,
-        //         width: 300,
-        //         decoration: const BoxDecoration(
-        //           color: Colors.lightBlue,
-        //         ),
-        //         child: const Image(
-        //           fit: BoxFit.fill,
-        //           image: AssetImage("assets/images/image_2.jpg"),
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // ),
-        ,
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.green,
           onPressed: () {

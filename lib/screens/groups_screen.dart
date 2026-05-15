@@ -5,8 +5,11 @@ class  GroupsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Center(
-      child: Text("Groups",style: TextStyle(color: Colors.white,fontSize: 30),),
+    return const Center(
+      child: Text(
+        "Groups",
+        style: TextStyle(color: Colors.white, fontSize: 30),
+      ),
     );
   }
 }
